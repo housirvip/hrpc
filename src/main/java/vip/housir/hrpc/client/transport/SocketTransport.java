@@ -30,13 +30,14 @@ public class SocketTransport implements Transport {
         Socket socket = null;
         ObjectOutputStream outputStream = null;
         ObjectInputStream inputStream = null;
+        HrpcResponse response = null;
         try {
             socket = new Socket(host, port);
             outputStream = new ObjectOutputStream(socket.getOutputStream());
             outputStream.writeObject(request);
             outputStream.flush();
             inputStream = new ObjectInputStream(socket.getInputStream());
-            return (HrpcResponse) inputStream.readObject();
+            response = (HrpcResponse) inputStream.readObject();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         } finally {
@@ -54,6 +55,6 @@ public class SocketTransport implements Transport {
                 logger.error(e.getMessage(), e);
             }
         }
-        return null;
+        return response;
     }
 }
