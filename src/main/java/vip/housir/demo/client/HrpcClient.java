@@ -1,8 +1,8 @@
-package vip.housir.hrpc.demo;
+package vip.housir.demo.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vip.housir.hrpc.demo.service.UserService;
+import vip.housir.demo.api.UserService;
 import vip.housir.hrpc.client.proxy.RequestProxyFactory;
 import vip.housir.hrpc.client.transport.SocketTransport;
 
@@ -18,8 +18,8 @@ public class HrpcClient {
         SocketTransport transport = new SocketTransport("localhost", 7788);
         UserService userService = RequestProxyFactory.createProxy(UserService.class, transport);
 
-        for (int i = 0; i < 1000; i++) {
-            String token = userService.login("housir", "vip");
+        for (int i = 1; i <= 1000; i++) {
+            String token = userService.login("housir", "vip" + i);
             logger.info(token);
         }
     }

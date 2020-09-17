@@ -2,8 +2,6 @@ package vip.housir.hrpc.server.publisher;
 
 import vip.housir.hrpc.core.HrpcService;
 
-import java.util.Map;
-
 /**
  * @author housirvip
  */
@@ -12,13 +10,20 @@ public interface Publisher {
     /**
      * 发布服务
      *
-     * @param port     端口号
-     * @param services 发布的服务
+     * @param port 端口号
      */
-    void publish(int port, Map<String, HrpcService> services);
+    void publish(int port);
 
     /**
      * 停止服务发布
      */
     void shutdown();
+
+    /**
+     * 发布的服务，注册
+     *
+     * @param serviceName 服务名称
+     * @param service     服务实现
+     */
+    void register(String serviceName, HrpcService service);
 }

@@ -8,6 +8,7 @@ import vip.housir.hrpc.server.processor.ProcessorThread;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -20,12 +21,17 @@ public class SocketPublisher implements Publisher {
 
     private final ExecutorService executor;
 
+    private final Map<String, HrpcService> services;
+
     public SocketPublisher() {
-        executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+        services = new HashMap<>(16);
+
+        executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(), Executors.defaultThreadFactory(), new ThreadPoolExecutor.AbortPolicy());
     }
 
     @Override
-    public void publish(int port, Map<String, HrpcService> services) {
+    public void publish(int port) {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(port);
@@ -50,5 +56,10 @@ public class SocketPublisher implements Publisher {
     @Override
     public void shutdown() {
         executor.shutdown();
+    }
+
+    @Override
+    public void register(String serviceName, HrpcService service) {
+        services.put(serviceName, service);
     }
 }

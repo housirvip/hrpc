@@ -1,6 +1,6 @@
-package vip.housir.hrpc.demo.service.impl;
+package vip.housir.demo.server.service;
 
-import vip.housir.hrpc.demo.service.UserService;
+import vip.housir.demo.api.UserService;
 
 /**
  * @author housirvip

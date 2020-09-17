@@ -1,4 +1,4 @@
-package vip.housir.hrpc.demo.service;
+package vip.housir.demo.api;
 
 import vip.housir.hrpc.core.HrpcService;
 
