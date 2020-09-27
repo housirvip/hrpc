@@ -23,6 +23,8 @@ public class SocketPublisher implements Publisher {
 
     private final Map<String, HrpcService> services;
 
+    private boolean shutdown = false;
+
     public SocketPublisher() {
         services = new HashMap<>(16);
 
@@ -36,7 +38,7 @@ public class SocketPublisher implements Publisher {
         try {
             serverSocket = new ServerSocket(port);
 
-            while (true) {
+            while (!shutdown) {
                 Socket socket = serverSocket.accept();
                 executor.execute(new ProcessorThread(socket, services));
             }
@@ -48,18 +50,29 @@ public class SocketPublisher implements Publisher {
                     serverSocket.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
     }
 
     @Override
     public void shutdown() {
+        shutdown = true;
         executor.shutdown();
     }
 
     @Override
     public void register(String serviceName, HrpcService service) {
         services.put(serviceName, service);
+    }
+
+    @Override
+    public void start(int port) {
+        logger.info("Server is listening... port: " + port);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Server is shutting down...");
+            shutdown();
+        }));
+        publish(port);
     }
 }

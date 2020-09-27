@@ -26,4 +26,11 @@ public interface Publisher {
      * @param service     服务实现
      */
     void register(String serviceName, HrpcService service);
+
+    /**
+     * 服务启动
+     *
+     * @param port 端口号
+     */
+    void start(int port);
 }

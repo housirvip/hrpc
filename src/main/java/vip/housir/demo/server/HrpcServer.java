@@ -15,6 +15,6 @@ public class HrpcServer {
         Publisher publisher = new SocketPublisher();
         publisher.register(UserService.class.getName(), new UserServiceImpl());
 
-        publisher.publish(7788);
+        publisher.start(7788);
     }
 }
