@@ -1,10 +1,10 @@
-package vip.housir.hrpc.client.proxy;
+package vip.housir.hrpc.consumer.proxy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vip.housir.hrpc.core.HrpcRequest;
 import vip.housir.hrpc.core.HrpcResponse;
-import vip.housir.hrpc.client.transport.Transport;
+import vip.housir.hrpc.consumer.transport.Transport;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -25,6 +25,7 @@ public class RequestInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
+        // 封装请求
         HrpcRequest request = new HrpcRequest();
         request.setMethodName(method.getName());
         request.setClassName(method.getDeclaringClass().getName());
@@ -32,6 +33,7 @@ public class RequestInvocationHandler implements InvocationHandler {
         request.setTypes(method.getParameterTypes());
 
         logger.debug(request.toString());
+        // 远程代用
         HrpcResponse response = transport.send(request);
         logger.debug(response.toString());
 

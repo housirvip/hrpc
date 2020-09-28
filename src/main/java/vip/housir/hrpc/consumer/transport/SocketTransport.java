@@ -1,4 +1,4 @@
-package vip.housir.hrpc.client.transport;
+package vip.housir.hrpc.consumer.transport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

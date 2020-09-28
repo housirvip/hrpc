@@ -1,27 +1,39 @@
 # Hrpc
 
-> Hrpc 全称 housirvip-rpc，是本人在学习 rpc 时的练习代码
+> Hrpc 全称 housirvip-rpc，用于学习 rpc 源码编写
 
-Hrpc version 1.0， 是手写 rpc 框架的第一个版本
+Hrpc version 1.1
 
-只是实现了网络通讯，远程调用
+- 客户端动态代理
+
+- 服务端反射调用
+
+- 实现了网络通讯，远程调用
+
+- 服务端 BIO 模型引入线程池
+
+- 服务端 IO 多路复用（ select 模型 ）
+
+- 服务器 shutdown hook
+
+- 支持 json 序列化方式
 
 ![](http://static.nicesite.vip/blog/20200915231642.png)
 
-client 包是客户端源码
+consumer 包是消费端（客户端）源码
 
-server 包是服务端源码
+provider 包是生产端（服务端）源码
 
-demo 是测试客户端和服务端的 demo，HrpcClient是客户端调用，HrpcServer是服务端调用
+demo 包是测试客户端和服务端的 demo
 
 TODO
 
-- 引入 Netty 进行 io 多路复用
+- PlainNio 引入 worker 和 boss 线程
+
+- 引入 Netty 强化 IO 多路复用
 
 - 支持服务的注册和发现
 
-- 服务优雅的关闭
-
 - 支持 bean 的容器化管理，实现通过注解注入依赖
 
-- 支持多种类型序列化编码方式 json，xml，protobuf
+- 支持 protobuf 

@@ -1,4 +1,4 @@
-package vip.housir.hrpc.server.processor;
+package vip.housir.hrpc.provider.processor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +41,11 @@ public class ProcessorThread implements Runnable {
             HrpcRequest request = (HrpcRequest) inputStream.readObject();
             logger.debug(request.toString());
 
+            // 反射调用
             Class<?> clazz = Class.forName(request.getClassName());
             Method method = clazz.getMethod(request.getMethodName(), request.getTypes());
+
+            // 通过名称查找已注册的服务方法
             HrpcService service = services.get(request.getClassName());
             Object body = method.invoke(service, request.getArgs());
 

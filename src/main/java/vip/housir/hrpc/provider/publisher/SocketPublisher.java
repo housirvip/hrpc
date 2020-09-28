@@ -1,9 +1,9 @@
-package vip.housir.hrpc.server.publisher;
+package vip.housir.hrpc.provider.publisher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vip.housir.hrpc.core.HrpcService;
-import vip.housir.hrpc.server.processor.ProcessorThread;
+import vip.housir.hrpc.provider.processor.ProcessorThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -40,6 +40,7 @@ public class SocketPublisher implements Publisher {
 
             while (!shutdown) {
                 Socket socket = serverSocket.accept();
+                // 将新的连接请求加入线程池
                 executor.execute(new ProcessorThread(socket, services));
             }
         } catch (IOException e) {
@@ -69,6 +70,7 @@ public class SocketPublisher implements Publisher {
     @Override
     public void start(int port) {
         logger.info("Server is listening... port: " + port);
+        // shutdown hook，接到关闭信号或者程序执行完成时
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Server is shutting down...");
             shutdown();

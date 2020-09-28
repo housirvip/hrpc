@@ -1,4 +1,4 @@
-package vip.housir.hrpc.client.transport;
+package vip.housir.hrpc.consumer.transport;
 
 import vip.housir.hrpc.core.HrpcRequest;
 import vip.housir.hrpc.core.HrpcResponse;

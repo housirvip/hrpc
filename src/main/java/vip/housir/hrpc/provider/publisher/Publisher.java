@@ -1,4 +1,4 @@
-package vip.housir.hrpc.server.publisher;
+package vip.housir.hrpc.provider.publisher;
 
 import vip.housir.hrpc.core.HrpcService;
 
