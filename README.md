@@ -2,7 +2,7 @@
 
 > Hrpc 全称 housirvip-rpc，用于学习 rpc 源码编写
 
-Hrpc version 1.1
+Hrpc version 1.2
 
 - 客户端动态代理
 
